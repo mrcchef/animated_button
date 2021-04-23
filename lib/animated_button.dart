@@ -28,7 +28,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
     with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _scaleAnimation;
-
+  Duration _smallDuration;
   ButtonState _currentState;
   int countButtonPressed = 0;
 
@@ -36,6 +36,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
   void initState() {
     super.initState();
     _currentState = ButtonState.SHOW_ONLY_TEXT;
+    _smallDuration = widget.duration * 0.2;
     _controller = AnimationController(
       vsync: this,
       duration: widget.duration,
@@ -79,8 +80,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
           // }),
         },
         child: AnimatedContainer(
-          duration: Duration(
-              milliseconds: (widget.duration.inMilliseconds * 0.2).round()),
+          duration: _smallDuration,
           decoration: BoxDecoration(
             border: Border.all(
                 color: _currentState == ButtonState.SHOW_ONLY_TEXT
@@ -99,8 +99,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: AnimatedSize(
             vsync: this,
-            duration: Duration(
-                milliseconds: (widget.duration.inMilliseconds * 0.2).round()),
+            duration: _smallDuration,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
